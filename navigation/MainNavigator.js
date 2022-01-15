@@ -1,9 +1,9 @@
 import {} from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import AuthScreen from "../screens/user/AuthScreen";
+import AuthNavigator from "./AuthNavigator";
 
 const MainNavigator = createSwitchNavigator({
-  Auth: AuthScreen,
+  Auth: AuthNavigator,
 });
 
 export default createAppContainer(MainNavigator);
