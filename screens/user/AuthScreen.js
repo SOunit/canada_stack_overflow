@@ -1,7 +1,9 @@
 import { useReducer, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Input } from "react-native-elements";
+import { useDispatch } from "react-redux";
 import env from "../../env";
+import * as authActions from "../../store/actions/auth";
 
 const UPDATE_EMAIL = "UPDATE_EMAIL";
 const UPDATE_PASSWORD = "UPDATE_PASSWORD";
@@ -26,6 +28,7 @@ const AuthScreen = (props) => {
       password: "password",
     }
   );
+  const dispatch = useDispatch();
 
   const authHandler = async () => {
     try {
@@ -50,6 +53,10 @@ const AuthScreen = (props) => {
 
       const resData = await response.json();
       console.log(resData);
+
+      dispatch(authActions.authenticate(resData.idToken, resData.localId));
+
+      props.navigation.navigate("Home");
     } catch (err) {
       console.log("Error in AuthScreen");
       console.log(err.message);
