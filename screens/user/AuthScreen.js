@@ -52,7 +52,6 @@ const AuthScreen = (props) => {
       }
 
       const resData = await response.json();
-      console.log(resData);
 
       dispatch(authActions.authenticate(resData.idToken, resData.localId));
 

@@ -1,11 +1,10 @@
 import {} from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import HomeScreen from "../screens/homeScreen";
 import AuthNavigator from "./AuthNavigator";
-import HomeNavigator from "./HomeNavigator";
+import HomeDrawerNavigator from "./HomeDrawerNavigator";
 
 const MainNavigator = createSwitchNavigator({
-  Home: HomeNavigator,
+  Home: HomeDrawerNavigator,
   Auth: AuthNavigator,
 });
 

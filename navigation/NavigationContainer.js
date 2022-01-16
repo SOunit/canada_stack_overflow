@@ -7,8 +7,6 @@ const NavigationContainer = () => {
   const isAuth = useSelector((state) => !!state.auth.token);
   const navRef = useRef();
 
-  console.log("NavigationContainer isAuth", isAuth);
-
   useEffect(() => {
     if (!isAuth) {
       navRef.current.dispatch(
