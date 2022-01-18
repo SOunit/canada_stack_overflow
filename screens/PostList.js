@@ -11,6 +11,7 @@ const PostList = ({ navigation }) => {
   const dispatch = useDispatch();
   const [postsData, setPostsData] = useState();
 
+  // Request data to firebase
   useEffect(() => {
     const db = getDatabase();
     const reference = ref(db, "/posts");
@@ -23,9 +24,9 @@ const PostList = ({ navigation }) => {
 
   return (
     <ScrollView style={{ width: "100%" }}>
-      {postsData?.map((post, i) => (
+      {postsData?.map((post) => (
         <TouchableOpacity
-          key={`posts-${i}`}
+          key={post.id}
           onPress={() => navigation.navigate("PostDetail", { id: post.id })}
         >
           <ListItem bottomDivider>
