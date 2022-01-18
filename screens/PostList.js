@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
 import { getDatabase, ref, onValue } from "firebase/database";
-// Need import initializer and initialize firebase
-import descendSort from "../helper/descendSort";
+import descendDateSort from "../helper/descendDateSort";
 import { useDispatch } from "react-redux";
 import { storePosts } from "../store/actions/posts";
 
@@ -17,7 +16,7 @@ const PostList = ({ navigation }) => {
     const reference = ref(db, "/posts");
     onValue(reference, (snapshot) => {
       const data = snapshot.val();
-      setPostsData(descendSort(data));
+      setPostsData(descendDateSort(data));
       dispatch(storePosts(data));
     });
   }, []);
