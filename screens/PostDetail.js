@@ -10,7 +10,7 @@ const PostDetail = ({ navigation }) => {
   const postId = navigation.getParam("id");
   const userId = useSelector((state) => state.auth.userId);
 
-  // find chosen question
+  // find chosen post
   const post = posts.find((el) => el.id === postId); // {}
 
   // sort post answers without mutate original post

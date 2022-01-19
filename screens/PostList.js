@@ -4,7 +4,7 @@ import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useDispatch } from "react-redux";
-import { storePosts } from "../store/actions/posts";
+import { initPosts } from "../store/actions/posts";
 
 const PostList = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const PostList = ({ navigation }) => {
     onValue(reference, (snapshot) => {
       const data = snapshot.val();
       setPostsData(descendDateSort(data));
-      dispatch(storePosts(data));
+      dispatch(initPosts(data));
     });
   }, []);
 

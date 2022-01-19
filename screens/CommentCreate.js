@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Input, Button, Card } from "react-native-elements";
 
-const PostCreate = () => {
+const CommentCreate = () => {
   return (
     <Card>
       <Input placeholder="Answer" multiline style={styles.input} />
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostCreate;
+export default CommentCreate;

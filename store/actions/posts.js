@@ -1,5 +1,5 @@
-export const STORE_POSTS = "STORE_POSTS";
+export const INIT_POSTS = "INIT_POSTS";
 
-export const storePosts = (posts) => {
-  return { type: STORE_POSTS, payload: posts };
+export const initPosts = (posts) => {
+  return { type: INIT_POSTS, payload: posts };
 };

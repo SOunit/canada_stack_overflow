@@ -4,12 +4,12 @@ import { createStackNavigator, HeaderBackButton } from "react-navigation-stack";
 import CustomHeaderButton from "../components/common/CustomHeaderButton";
 import PostList from "../screens/PostList";
 import PostDetail from "../screens/PostDetail";
-import PostCreate from "../screens/PostCreate";
+import CommentCreate from "../screens/CommentCreate";
 import defaultNavOptions from "./defaultNavOptions";
 import Colors from "../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 
-const leftHeader = (navigation) => (
+const menuButton = (navigation) => (
   <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
     <Item
       title="Menu"
@@ -27,7 +27,7 @@ const HomeNavigator = createStackNavigator(
       screen: PostList,
       navigationOptions: ({ navigation }) => {
         return {
-          headerLeft: leftHeader(navigation),
+          headerLeft: menuButton(navigation),
         };
       },
     },
@@ -46,7 +46,7 @@ const HomeNavigator = createStackNavigator(
           headerRight: (
             <TouchableOpacity
               style={{ alignItems: "center", marginRight: 20 }}
-              onPress={() => navigation.navigate("PostCreate")}
+              onPress={() => navigation.navigate("CommentCreate")}
             >
               <FontAwesome name="pencil-square-o" size={24} color="#fff" />
             </TouchableOpacity>
@@ -54,8 +54,8 @@ const HomeNavigator = createStackNavigator(
         };
       },
     },
-    PostCreate: {
-      screen: PostCreate,
+    CommentCreate: {
+      screen: CommentCreate,
       navigationOptions: ({ navigation }) => {
         return {
           headerLeft: (
