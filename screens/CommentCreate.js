@@ -4,8 +4,8 @@ import { Input, Button, Card } from "react-native-elements";
 const CommentCreate = () => {
   return (
     <Card>
-      <Input placeholder="Answer" multiline style={styles.input} />
-      <Button title="Post" containerStyle={{ marginHorizontal: 10 }} />
+      <Input placeholder="Comment" multiline style={styles.input} />
+      <Button title="Submit" containerStyle={{ marginHorizontal: 10 }} />
     </Card>
   );
 };
