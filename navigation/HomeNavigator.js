@@ -1,11 +1,13 @@
-import { Platform } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { createStackNavigator, HeaderBackButton } from "react-navigation-stack";
 import CustomHeaderButton from "../components/common/CustomHeaderButton";
 import PostList from "../screens/PostList";
 import PostDetail from "../screens/PostDetail";
+import PostCreate from "../screens/PostCreate";
 import defaultNavOptions from "./defaultNavOptions";
 import Colors from "../constants/Colors";
+import { FontAwesome } from "@expo/vector-icons";
 
 const leftHeader = (navigation) => (
   <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
@@ -35,7 +37,30 @@ const HomeNavigator = createStackNavigator(
         return {
           headerLeft: (
             <HeaderBackButton
-              tintColor={Colors.primary}
+              tintColor={Platform.OS === "android" ? "white" : Colors.primary}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
+          headerRight: (
+            <TouchableOpacity
+              style={{ alignItems: "center", marginRight: 20 }}
+              onPress={() => navigation.navigate("PostCreate")}
+            >
+              <FontAwesome name="pencil-square-o" size={24} color="#fff" />
+            </TouchableOpacity>
+          ),
+        };
+      },
+    },
+    PostCreate: {
+      screen: PostCreate,
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: (
+            <HeaderBackButton
+              tintColor={Platform.OS === "android" ? "white" : Colors.primary}
               onPress={() => {
                 navigation.goBack();
               }}

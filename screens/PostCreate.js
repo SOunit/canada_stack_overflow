@@ -1,13 +1,20 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Input, Button, Card } from "react-native-elements";
 
 const PostCreate = () => {
   return (
-    <View>
-      <Text>PostCreate</Text>
-    </View>
+    <Card>
+      <Input placeholder="Answer" multiline style={styles.input} />
+      <Button title="Post" containerStyle={{ marginHorizontal: 10 }} />
+    </Card>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  input: {
+    margin: 20,
+    paddingHorizontal: 5,
+  },
+});
 
 export default PostCreate;

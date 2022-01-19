@@ -3,13 +3,18 @@ import { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
 import { getDatabase, ref, onValue } from "firebase/database";
-import descendDateSort from "../helper/descendDateSort";
 import { useDispatch } from "react-redux";
 import { storePosts } from "../store/actions/posts";
 
 const PostList = ({ navigation }) => {
   const dispatch = useDispatch();
   const [postsData, setPostsData] = useState();
+
+  const descendDateSort = (arr) => {
+    return arr.sort((a, b) => {
+      return new Date(b.postDate) - new Date(a.postDate);
+    });
+  };
 
   // Request data to firebase
   useEffect(() => {
