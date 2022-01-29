@@ -7,6 +7,9 @@ import Colors from "../constants/Colors";
 import { initPostKey } from "../store/actions/postKey";
 
 const PostDetail = ({ navigation }) => {
+  const key = 0;
+  const value = 1;
+
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.userId);
   const posts = useSelector((state) => state.posts); //[[key, {postDate:2020, ...}],[key, {postDate:2010, ...}]]
@@ -16,14 +19,15 @@ const PostDetail = ({ navigation }) => {
   dispatch(initPostKey(postKey));
 
   // find chosen post
-  const post = posts.find((el) => el[0] === postKey); //el=[key, {postDate:2020, ...}]
+  const post = posts.find((el) => el[key] === postKey); //el=[key, {postDate:2020, ...}]
 
   const descendVoteSort = (arr) => {
     return arr.sort(
-      (a, b) => b[1].votedUserIdList.length - a[1].votedUserIdList.length
+      (a, b) =>
+        b[value].votedUserIdList.length - a[value].votedUserIdList.length
     );
   };
-  const comments = post[1].comments; //{key: {}, key: {}, key{}}
+  const comments = post[value].comments; //{key: {}, key: {}, key{}}
   const entriesComments = Object.entries(comments);
   //[[0, {}], [key: {votedUserIdList, length=10, ...}], [key, {votedUserIdList: 20, ...}]]
   const descendEntriesComments = descendVoteSort(entriesComments);
@@ -32,9 +36,9 @@ const PostDetail = ({ navigation }) => {
   const toggleVote = (commentKey) => {
     // for updating data
     const targetComment = descendEntriesComments.find(
-      (el) => el[0] === commentKey
+      (el) => el[key] === commentKey
     );
-    const votedUserIdList = targetComment[1].votedUserIdList;
+    const votedUserIdList = targetComment[value].votedUserIdList;
 
     const db = getDatabase();
     const reference = ref(db, `/posts/${postKey}/comments/${commentKey}`);
@@ -49,37 +53,39 @@ const PostDetail = ({ navigation }) => {
   return (
     <ScrollView>
       <Text h1 style={{ textAlign: "center" }}>
-        {post[1].title}
+        {post[value].title}
       </Text>
       {descendEntriesComments.map((comment) => (
-        <Card key={comment[0]} containerStyle={{ marginTop: 15 }}>
-          <Text>{comment[1].comment}</Text>
+        <Card key={comment[key]} containerStyle={{ marginTop: 15 }}>
+          <Text>{comment[value].comment}</Text>
           <Card.Divider style={styles.divider} />
           <TouchableOpacity
             style={[
               styles.thumbsButton,
-              comment[1].votedUserIdList.includes(userId)
+              comment[value].votedUserIdList.includes(userId)
                 ? styles.clicked
                 : styles.unClicked,
             ]}
-            onPress={() => toggleVote(comment[0])}
+            onPress={() => toggleVote(comment[key])}
           >
             <Feather
               name="thumbs-up"
               size={15}
               style={{ marginRight: 5 }}
               color={
-                comment[1].votedUserIdList.includes(userId) ? "#fff" : "#000"
+                comment[value].votedUserIdList.includes(userId)
+                  ? "#fff"
+                  : "#000"
               }
             />
             <Text
               style={{
-                color: comment[1].votedUserIdList.includes(userId)
+                color: comment[value].votedUserIdList.includes(userId)
                   ? "#fff"
                   : "#000",
               }}
             >
-              {comment[1].votedUserIdList.length - 1}
+              {comment[value].votedUserIdList.length - 1}
             </Text>
           </TouchableOpacity>
         </Card>
