@@ -1,18 +1,21 @@
 import { firebase } from "../firebase";
 import { useState, useEffect } from "react";
-import { StyleSheet, ScrollView, TouchableOpacity, Text } from "react-native";
-import { ListItem, Button } from "react-native-elements";
+import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { ListItem } from "react-native-elements";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useDispatch } from "react-redux";
 import { initPosts } from "../store/actions/posts";
 
 const PostList = ({ navigation }) => {
+  const key = 0;
+  const value = 1;
+
   const dispatch = useDispatch();
   const [posts, setPosts] = useState();
 
   const descendDateSort = (arr) => {
     return arr.sort((a, b) => {
-      return new Date(b[1].postDate) - new Date(a[1].postDate);
+      return new Date(b[value].postDate) - new Date(a[value].postDate);
     });
   };
 
@@ -34,13 +37,13 @@ const PostList = ({ navigation }) => {
     <ScrollView style={{ width: "100%" }}>
       {posts?.map((post) => (
         <TouchableOpacity
-          key={post[0]} //unique-ke
-          onPress={() => navigation.navigate("PostDetail", { key: post[0] })}
+          key={post[key]} //unique-ke
+          onPress={() => navigation.navigate("PostDetail", { key: post[key] })}
         >
           <ListItem bottomDivider>
             <ListItem.Content>
-              <ListItem.Title>{post[1].title}</ListItem.Title>
-              <ListItem.Subtitle>{post[1].postDate}</ListItem.Subtitle>
+              <ListItem.Title>{post[value].title}</ListItem.Title>
+              <ListItem.Subtitle>{post[value].postDate}</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
         </TouchableOpacity>
