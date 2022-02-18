@@ -11,11 +11,12 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-let firebase;
-if (!getApps().length) {
-  firebase = initializeApp(firebaseConfig);
-} else {
-  firebase = getApp();
-}
+const initFirebase = () => {
+  if (!getApps().length) {
+    initializeApp(firebaseConfig);
+  } else {
+    getApp();
+  }
+};
 
-export default firebase;
+export default initFirebase;

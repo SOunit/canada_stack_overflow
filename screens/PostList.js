@@ -1,4 +1,3 @@
-import { firebase } from "../firebase";
 import { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
