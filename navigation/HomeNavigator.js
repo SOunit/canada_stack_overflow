@@ -43,7 +43,7 @@ const HomeNavigator = createStackNavigator(
               }}
             />
           ),
-          headerRight: (
+          headerRight: () => (
             <TouchableOpacity
               style={{ alignItems: "center", marginRight: 20 }}
               onPress={() => navigation.navigate("CommentCreate")}
