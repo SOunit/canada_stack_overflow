@@ -27,7 +27,7 @@ const HomeNavigator = createStackNavigator(
       screen: PostList,
       navigationOptions: ({ navigation }) => {
         return {
-          headerLeft: menuButton(navigation),
+          headerLeft: () => menuButton(navigation),
         };
       },
     },
@@ -35,7 +35,7 @@ const HomeNavigator = createStackNavigator(
       screen: PostDetail,
       navigationOptions: ({ navigation }) => {
         return {
-          headerLeft: (
+          headerLeft: () => (
             <HeaderBackButton
               tintColor={Platform.OS === "android" ? "white" : Colors.primary}
               onPress={() => {
@@ -58,7 +58,7 @@ const HomeNavigator = createStackNavigator(
       screen: CommentCreate,
       navigationOptions: ({ navigation }) => {
         return {
-          headerLeft: (
+          headerLeft: () => (
             <HeaderBackButton
               tintColor={Platform.OS === "android" ? "white" : Colors.primary}
               onPress={() => {
