@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 import {
   API_KEY,
   AUTH_DOMAIN,
@@ -21,4 +21,11 @@ const firebaseConfig = {
   measurementId: MEASUREMENT_ID,
 };
 
-export const firebase = initializeApp(firebaseConfig);
+let firebase;
+if (!getApps().length) {
+  firebase = initializeApp(firebaseConfig);
+} else {
+  firebase = getApp();
+}
+
+export default firebase;
