@@ -2,7 +2,6 @@ import { useReducer, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Input } from "react-native-elements";
 import { useDispatch } from "react-redux";
-import env from "../../env";
 import * as authActions from "../../store/actions/auth";
 
 const UPDATE_EMAIL = "UPDATE_EMAIL";
@@ -32,9 +31,9 @@ const AuthScreen = (props) => {
 
   const authHandler = async () => {
     try {
-      let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env.firebaseApiKey}`;
+      let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
       if (isSignup) {
-        url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${env.firebaseApiKey}`;
+        url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
       }
 
       const response = await fetch(url, {
