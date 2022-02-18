@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { useEffect } from "react";
+import { StyleSheet, ScrollView, TouchableOpacity, Text } from "react-native";
 import { ListItem } from "react-native-elements";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initPosts } from "../store/actions/posts";
 
 const PostList = ({ navigation }) => {
@@ -10,7 +10,7 @@ const PostList = ({ navigation }) => {
   const value = 1;
 
   const dispatch = useDispatch();
-  const [posts, setPosts] = useState();
+  const posts = useSelector((state) => state.posts);
 
   const descendDateSort = (arr) => {
     return arr.sort((a, b) => {
@@ -23,11 +23,13 @@ const PostList = ({ navigation }) => {
     const db = getDatabase();
     const reference = ref(db, "/posts");
     onValue(reference, (snapshot) => {
-      const posts = snapshot.val(); //{key:{}, key:{}}
-      const entriesPosts = Object.entries(posts); //[[key, {postDate:2010, ...}],[key, {postDate:2020, ...}]]
-      const descendEntriesPosts = descendDateSort(entriesPosts); //[[key, {postDate:2020, ...}],[key, {postDate:2010, ...}]]
+      //{key:{}, key:{}}
+      const posts = snapshot.val();
+      //[[key, {postDate:2010, ...}],[key, {postDate:2020, ...}]]
+      const entriesPosts = Object.entries(posts);
+      //[[key, {postDate:2020, ...}],[key, {postDate:2010, ...}]]
+      const descendEntriesPosts = descendDateSort(entriesPosts);
 
-      setPosts(descendEntriesPosts);
       dispatch(initPosts(descendEntriesPosts));
     });
   }, []);
