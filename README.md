@@ -2,7 +2,7 @@
 - question and answer app focusing on Canada!
 - sorted question and answer like stack overflow
 
-# how to start
+# project setup
 - serup expo
 
 https://www.youtube.com/watch?v=bef12Fa9bhM
@@ -15,5 +15,17 @@ https://www.youtube.com/watch?v=bef12Fa9bhM
 # what is expo
 Expo is an open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
 
+# how to work
+- create issue
+- create branch with issue number
+- fix problem
+- create pull request
+- get review and merge
+- close issue
+
+# check
+- no error, no warning
+
 # contact
 - if you have any problem with setup and etc. let's talk in zoom or slack!
+
