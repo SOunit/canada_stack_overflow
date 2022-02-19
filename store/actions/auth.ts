@@ -1,7 +1,7 @@
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
 
-export const authenticate = (token, userId) => {
+export const authenticate = (token: string, userId: string) => {
   return { type: AUTHENTICATE, token, userId };
 };
 
