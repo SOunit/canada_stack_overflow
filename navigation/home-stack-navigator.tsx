@@ -5,7 +5,7 @@ import CustomHeaderButton from "../components/common/CustomHeaderButton";
 import PostList from "../screens/PostList";
 import PostDetail from "../screens/PostDetail";
 import CommentCreate from "../screens/CommentCreate";
-import defaultNavOptions from "./defaultNavOptions";
+import defaultNavOptions from "./default-nav-options";
 import Colors from "../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import createPost from "../screens/post/create-post";
@@ -23,7 +23,7 @@ const menuButton = (navigation) => (
   </HeaderButtons>
 );
 
-const HomeNavigator = createStackNavigator(
+const HomeStackNavigator = createStackNavigator(
   {
     [POST_LIST]: {
       screen: PostList,
@@ -107,4 +107,4 @@ const HomeNavigator = createStackNavigator(
   { defaultNavigationOptions: defaultNavOptions }
 );
 
-export default HomeNavigator;
+export default HomeStackNavigator;
