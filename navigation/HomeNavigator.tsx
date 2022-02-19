@@ -8,6 +8,8 @@ import CommentCreate from "../screens/CommentCreate";
 import defaultNavOptions from "./defaultNavOptions";
 import Colors from "../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
+import createPost from "../screens/post/create-post";
+import { POST_LIST } from "../constants/screen-names";
 
 const menuButton = (navigation) => (
   <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
@@ -23,11 +25,39 @@ const menuButton = (navigation) => (
 
 const HomeNavigator = createStackNavigator(
   {
-    PostList: {
+    [POST_LIST]: {
       screen: PostList,
       navigationOptions: ({ navigation }) => {
         return {
+          title: "Post List",
           headerLeft: () => menuButton(navigation),
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ alignItems: "center", marginRight: 20 }}
+              onPress={() => navigation.navigate("CreatePost")}
+            >
+              <FontAwesome
+                name="pencil-square-o"
+                size={24}
+                color={Platform.OS === "android" ? "white" : Colors.primary}
+              />
+            </TouchableOpacity>
+          ),
+        };
+      },
+    },
+    CreatePost: {
+      screen: createPost,
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: () => (
+            <HeaderBackButton
+              tintColor={Platform.OS === "android" ? "white" : Colors.primary}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
         };
       },
     },
@@ -48,7 +78,11 @@ const HomeNavigator = createStackNavigator(
               style={{ alignItems: "center", marginRight: 20 }}
               onPress={() => navigation.navigate("CommentCreate")}
             >
-              <FontAwesome name="pencil-square-o" size={24} color="#fff" />
+              <FontAwesome
+                name="pencil-square-o"
+                size={24}
+                color={Platform.OS === "android" ? "white" : Colors.primary}
+              />
             </TouchableOpacity>
           ),
         };
