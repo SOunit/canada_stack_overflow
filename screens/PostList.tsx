@@ -36,7 +36,7 @@ const PostList = ({ navigation }) => {
 
   return (
     <ScrollView style={{ width: "100%" }}>
-      {posts?.map((post) => (
+      {posts.posts?.map((post) => (
         <TouchableOpacity
           key={post[key]} //unique-ke
           onPress={() => navigation.navigate("PostDetail", { key: post[key] })}

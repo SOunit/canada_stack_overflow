@@ -1,11 +1,15 @@
 import { INIT_POSTS } from "../actions/posts";
 
-const initialState = [];
+interface postsState {
+  posts: any[];
+}
 
-export default (state = initialState, action) => {
+const initialState = { posts: [] };
+
+export default (state: postsState = initialState, action) => {
   switch (action.type) {
     case INIT_POSTS:
-      return action.payload;
+      return { posts: action.payload };
     default:
       return state;
   }
