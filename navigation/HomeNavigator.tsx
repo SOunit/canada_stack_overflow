@@ -28,6 +28,18 @@ const HomeNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => {
         return {
           headerLeft: () => menuButton(navigation),
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ alignItems: "center", marginRight: 20 }}
+              onPress={() => navigation.navigate("CommentCreate")}
+            >
+              <FontAwesome
+                name="pencil-square-o"
+                size={24}
+                color={Platform.OS === "android" ? "white" : Colors.primary}
+              />
+            </TouchableOpacity>
+          ),
         };
       },
     },
@@ -48,7 +60,11 @@ const HomeNavigator = createStackNavigator(
               style={{ alignItems: "center", marginRight: 20 }}
               onPress={() => navigation.navigate("CommentCreate")}
             >
-              <FontAwesome name="pencil-square-o" size={24} color="#fff" />
+              <FontAwesome
+                name="pencil-square-o"
+                size={24}
+                color={Platform.OS === "android" ? "white" : Colors.primary}
+              />
             </TouchableOpacity>
           ),
         };
