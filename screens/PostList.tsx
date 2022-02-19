@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import { StyleSheet, ScrollView, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
-import { getDatabase, ref, onValue } from "firebase/database";
 import { useDispatch, useSelector } from "react-redux";
-import { initPosts } from "../store/actions/posts";
+import { fetchPosts } from "../store/actions/posts";
 import firebaseApp from "../firebase-app";
 
 const PostList = ({ navigation }) => {
@@ -21,21 +20,21 @@ const PostList = ({ navigation }) => {
     firebaseApp.read("/posts", (snapshot) => {
       const posts = snapshot.val();
       console.log("posts", posts);
-      dispatch(initPosts(posts));
+      dispatch(fetchPosts(posts));
     });
   }, []);
 
   let postList = [];
-  for (let key in posts) {
+  for (let id in posts) {
     postList.push(
       <TouchableOpacity
-        key={key}
-        onPress={() => navigation.navigate("PostDetail", { key })}
+        key={id}
+        onPress={() => navigation.navigate("PostDetail", { id })}
       >
         <ListItem bottomDivider>
           <ListItem.Content>
-            <ListItem.Title>{posts[key].title}</ListItem.Title>
-            <ListItem.Subtitle>{posts[key].postDate}</ListItem.Subtitle>
+            <ListItem.Title>{posts[id].title}</ListItem.Title>
+            <ListItem.Subtitle>{posts[id].postDate}</ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>
       </TouchableOpacity>
