@@ -9,7 +9,13 @@ import {
   FIREBASE_APP_ID,
   FIREBASE_MEASUREMENT_ID,
 } from "@env";
-import { getDatabase, push, ref } from "firebase/database";
+import {
+  DataSnapshot,
+  getDatabase,
+  onValue,
+  push,
+  ref,
+} from "firebase/database";
 
 const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
@@ -38,6 +44,12 @@ const create = (path: string, body: object, callback: Function) => {
   push(reference, body);
 };
 
-const firebaseApp = { init, create };
+const read = (path: string, callback: (snapshot: DataSnapshot) => unknown) => {
+  const db = getDatabase();
+  const reference = ref(db, path);
+  onValue(reference, callback);
+};
+
+const firebaseApp = { init, create, read };
 
 export default firebaseApp;
