@@ -1,12 +1,22 @@
 import { useState } from "react";
 import { Card, Input, Button } from "react-native-elements";
 import { POST_LIST } from "../../constants/screen-names";
+import firebaseApp from "../../firebase-app";
 
 const createPost = ({ navigation }) => {
-  const [postText, setPostText] = useState("");
+  const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
 
   const createPostHandler = () => {
+    firebaseApp.create(
+      "/posts",
+      {
+        title: postTitle,
+        content: postContent,
+        postDate: new Date().toISOString(),
+      },
+      () => {}
+    );
     navigation.navigate(POST_LIST);
   };
 
@@ -16,8 +26,8 @@ const createPost = ({ navigation }) => {
         autoCompleteType="off"
         placeholder="Title"
         multiline
-        value={postText}
-        onChangeText={setPostText}
+        value={postTitle}
+        onChangeText={setPostTitle}
       />
       <Input
         autoCompleteType="off"

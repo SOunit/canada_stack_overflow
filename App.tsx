@@ -6,7 +6,7 @@ import postKeyReducer from "./store/reducers/postKey";
 import ReduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
 import NavigationContainer from "./navigation/NavigationContainer";
-import initFirebase from "./init-firebase";
+import firebaseApp from "./firebase-app";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
 });
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
-initFirebase();
+firebaseApp.init();
 
 export default function App() {
   return (

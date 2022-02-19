@@ -1,4 +1,4 @@
-import { getApp, getApps, initializeApp } from "firebase/app";
+import { FirebaseApp, getApp, getApps, initializeApp } from "firebase/app";
 import {
   FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN,
@@ -9,6 +9,7 @@ import {
   FIREBASE_APP_ID,
   FIREBASE_MEASUREMENT_ID,
 } from "@env";
+import { getDatabase, push, ref } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
@@ -21,12 +22,22 @@ const firebaseConfig = {
   measurementId: FIREBASE_MEASUREMENT_ID,
 };
 
-const initFirebase = () => {
+let app;
+
+const init = () => {
   if (!getApps().length) {
-    initializeApp(firebaseConfig);
+    app = initializeApp(firebaseConfig);
   } else {
-    getApp();
+    app = getApp();
   }
 };
 
-export default initFirebase;
+const create = (path: string, body: object, callback: Function) => {
+  const db = getDatabase();
+  const reference = ref(db, path);
+  push(reference, body);
+};
+
+const firebaseApp = { init, create };
+
+export default firebaseApp;
