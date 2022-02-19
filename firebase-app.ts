@@ -54,7 +54,7 @@ const read = (path: string, callback: (snapshot: DataSnapshot) => unknown) => {
 const update = (path: string, body: object) => {
   const db = getDatabase();
   const reference = ref(db, path);
-  set(reference, body);
+  update(reference, body);
 };
 
 const firebaseApp = { init, create, read, update };

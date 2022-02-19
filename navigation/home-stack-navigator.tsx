@@ -1,9 +1,8 @@
 import { Platform, TouchableOpacity } from "react-native";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { createStackNavigator, HeaderBackButton } from "react-navigation-stack";
-import PostList from "../screens/PostList";
-import PostDetail from "../screens/PostDetail";
-import CommentCreate from "../screens/CommentCreate";
+import PostList from "../screens/post/post-list";
+import PostDetail from "../screens/post/post-detail";
+import CommentCreate from "../screens/post/create-comment";
 import defaultNavOptions from "./default-nav-options";
 import Colors from "../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
