@@ -14,3 +14,6 @@ https://www.youtube.com/watch?v=bef12Fa9bhM
 
 # what is expo
 Expo is an open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
+
+# contact
+- if you have any problem with setup and etc. let's talk in zoom or slack!
