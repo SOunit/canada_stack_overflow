@@ -6,9 +6,6 @@ import { getDatabase, ref, update } from "firebase/database";
 import Colors from "../constants/Colors";
 
 const PostDetail = ({ navigation }) => {
-  const key = 0;
-  const value = 1;
-
   // why user id?
   const userId = useSelector((state) => state.auth.userId);
 
@@ -21,8 +18,6 @@ const PostDetail = ({ navigation }) => {
   //       b[value].votedUserIdList.length - a[value].votedUserIdList.length
   //   );
   // };
-
-  // const descendEntriesComments = descendVoteSort(entriesComments);
 
   const toggleVote = (commentId: string) => {
     // for updating data
