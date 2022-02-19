@@ -1,7 +1,6 @@
 import { Platform, TouchableOpacity } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { createStackNavigator, HeaderBackButton } from "react-navigation-stack";
-import CustomHeaderButton from "../components/common/CustomHeaderButton";
 import PostList from "../screens/PostList";
 import PostDetail from "../screens/PostDetail";
 import CommentCreate from "../screens/CommentCreate";
@@ -10,18 +9,7 @@ import Colors from "../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import createPost from "../screens/post/create-post";
 import { POST_LIST } from "../constants/screen-names";
-
-const menuButton = (navigation) => (
-  <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-    <Item
-      title="Menu"
-      iconName={Platform.OS === "android" ? "md-menu" : "ios-menu"}
-      onPress={() => {
-        navigation.toggleDrawer();
-      }}
-    />
-  </HeaderButtons>
-);
+import MenuButton from "../components/organisms/menu-button";
 
 const HomeStackNavigator = createStackNavigator(
   {
@@ -30,7 +18,7 @@ const HomeStackNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => {
         return {
           title: "Post List",
-          headerLeft: () => menuButton(navigation),
+          headerLeft: () => MenuButton(navigation),
           headerRight: () => (
             <TouchableOpacity
               style={{ alignItems: "center", marginRight: 20 }}
