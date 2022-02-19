@@ -2,11 +2,11 @@ import { useSelector } from "react-redux";
 import { StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { Text, Card } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
-import { getDatabase, ref, update } from "firebase/database";
 import Colors from "../constants/Colors";
+import firebaseApp from "../firebase-app";
 
 const PostDetail = ({ navigation }) => {
-  // why user id?
+  // for toggle comment good button
   const userId = useSelector((state) => state.auth.userId);
 
   const postId = navigation.getParam("id");
@@ -19,19 +19,21 @@ const PostDetail = ({ navigation }) => {
   //   );
   // };
 
-  const toggleVote = (commentId: string) => {
-    // for updating data
-    const targetComment = selectedPost.comments[commentId];
-    const votedUserIdList = targetComment.votedUserIdList;
+  const toggleVoteHandler = (commentId: string) => {
+    const votedUserIdList = [
+      ...selectedPost.comments[commentId].votedUserIdList,
+    ];
 
-    const db = getDatabase();
-    const reference = ref(db, `/posts/${postId}/comments/${commentId}`);
-    update(
-      reference,
-      votedUserIdList.includes(userId)
-        ? { votedUserIdList: votedUserIdList.filter((id) => id !== userId) }
-        : { votedUserIdList: votedUserIdList.concat(userId) }
-    );
+    let body;
+    if (votedUserIdList.includes(userId)) {
+      body = {
+        votedUserIdList: votedUserIdList.filter((id: string) => id !== userId),
+      };
+    } else {
+      body = { votedUserIdList: votedUserIdList.concat(userId) };
+    }
+
+    firebaseApp.update(`/posts/${postId}/comments/${commentId}`, body);
   };
 
   let commentList = [];
@@ -47,7 +49,7 @@ const PostDetail = ({ navigation }) => {
               ? styles.clicked
               : styles.unClicked,
           ]}
-          onPress={() => toggleVote(id)}
+          onPress={() => toggleVoteHandler(id)}
         >
           <Feather
             name="thumbs-up"
