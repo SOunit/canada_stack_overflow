@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import { StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { Text, Card } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
-import Colors from "../constants/Colors";
-import firebaseApp from "../firebase-app";
+import Colors from "../../constants/Colors";
+import firebaseApp from "../../firebase-app";
 
 const PostDetail = ({ navigation }) => {
   // for toggle comment good button

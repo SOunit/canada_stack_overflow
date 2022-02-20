@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../store/actions/posts";
-import firebaseApp from "../firebase-app";
+import { fetchPosts } from "../../store/actions/posts";
+import firebaseApp from "../../firebase-app";
 
 const PostList = ({ navigation }) => {
   const dispatch = useDispatch();

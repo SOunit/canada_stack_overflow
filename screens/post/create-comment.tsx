@@ -4,7 +4,7 @@ import { Input, Button, Card } from "react-native-elements";
 import { getDatabase, ref, push } from "firebase/database";
 import { useSelector } from "react-redux";
 
-const CommentCreate = ({ navigation }) => {
+const CreateComment = ({ navigation }) => {
   const [commentInput, setCommentInput] = useState("");
   const postKey = useSelector((state) => state.postKey);
 
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CommentCreate;
+export default CreateComment;
