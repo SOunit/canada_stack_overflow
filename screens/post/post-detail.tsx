@@ -1,31 +1,38 @@
-import { useSelector } from "react-redux";
-import { StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import { Text, Card } from "react-native-elements";
-import { Feather } from "@expo/vector-icons";
-import Colors from "../../constants/Colors";
+import { useDispatch, useSelector } from "react-redux";
+import { ScrollView } from "react-native";
+import { Text } from "react-native-elements";
 import firebaseApp from "../../firebase-app";
 import { useEffect } from "react";
+import * as postActions from "../../store/actions/posts";
+import CommentCard from "../../components/organisms/comment-card";
+import { Comment } from "../../models/comment";
 
 const PostDetail = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   // for toggle comment good button
   const userId = useSelector((state) => state.auth.userId);
-
   const postId = navigation.getParam("id");
+  const selectedPost = useSelector((state) => state.posts)[postId];
 
   // set params to pass to navigator
   useEffect(() => {
     navigation.setParams({ postId });
   }, [postId]);
 
-  const selectedPost = useSelector((state) => state.posts)[postId];
-
   const toggleVoteHandler = (commentId: string) => {
     // voteUserIdList not exist, add user
+
+    // update firebase
     if (!selectedPost.comments[commentId].voteUserIdList) {
+      // update redux state
+      dispatch(postActions.updateVote(postId, commentId, userId, true));
+
       firebaseApp.update(`/posts/${postId}/comments/${commentId}`, {
         voteUserIdList: [userId],
         voteCount: 1,
       });
+
       return;
     }
 
@@ -37,85 +44,54 @@ const PostDetail = ({ navigation }) => {
         voteUserIdList: voteUserIdList.filter((id: string) => id !== userId),
         voteCount: selectedPost.comments[commentId].voteCount - 1,
       };
+
+      // update redux state
+      dispatch(postActions.updateVote(postId, commentId, userId, false));
     } else {
       body = {
         voteUserIdList: voteUserIdList.concat(userId),
         voteCount: selectedPost.comments[commentId].voteCount + 1,
       };
+
+      // update redux state
+      dispatch(postActions.updateVote(postId, commentId, userId, true));
     }
 
     firebaseApp.update(`/posts/${postId}/comments/${commentId}`, body);
   };
 
-  let commentList = [];
-  for (let id in selectedPost.comments) {
-    commentList.push(
-      <Card key={id} containerStyle={{ marginTop: 15 }}>
-        <Text>{selectedPost.comments[id].text}</Text>
-        <Card.Divider style={styles.divider} />
-        <TouchableOpacity
-          style={[
-            styles.thumbsButton,
-            selectedPost.comments[id].voteUserIdList?.includes(userId)
-              ? styles.clicked
-              : styles.unClicked,
-          ]}
-          onPress={() => toggleVoteHandler(id)}
-        >
-          <Feather
-            name="thumbs-up"
-            size={15}
-            style={{ marginRight: 5 }}
-            color={
-              selectedPost.comments[id].voteUserIdList?.includes(userId)
-                ? "#fff"
-                : "#000"
-            }
-          />
-          <Text
-            style={{
-              color: selectedPost.comments[id].voteUserIdList?.includes(userId)
-                ? "#fff"
-                : "#000",
-            }}
-          >
-            {selectedPost.comments[id].voteCount}
-          </Text>
-        </TouchableOpacity>
-      </Card>
-    );
-  }
+  const descendVoteSort = (arr: { id: string; data: Comment }[]) => {
+    return arr.sort((a, b) => b.data.voteCount - a.data.voteCount);
+  };
+
+  const getOrderedComments = (comments: Comment[]) => {
+    let commentList = [];
+    for (let id in comments) {
+      commentList.push({ id, data: comments[id] });
+    }
+    if (commentList.length > 0) {
+      commentList = descendVoteSort(commentList);
+    }
+    return commentList;
+  };
+
+  let commentList = getOrderedComments(selectedPost.comments);
 
   return (
     <ScrollView>
       <Text h1 style={{ textAlign: "center" }}>
         {selectedPost.title}
       </Text>
-      {commentList}
+      {commentList.map((comment: { id: string; data: Comment }) => (
+        <CommentCard
+          key={comment.id}
+          comment={comment}
+          onToggleVote={toggleVoteHandler}
+          userId={userId}
+        />
+      ))}
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  divider: {
-    marginTop: 15,
-  },
-  thumbsButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-end",
-    padding: 8,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-  },
-  clicked: {
-    borderWidth: 1,
-    borderColor: "#fff",
-    backgroundColor: Colors.primary,
-  },
-  unClicked: {
-    borderWidth: 1,
-  },
-});
 
 export default PostDetail;
