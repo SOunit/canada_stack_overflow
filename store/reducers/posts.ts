@@ -1,6 +1,7 @@
 import { FETCH_POSTS, UPDATE_VOTE } from "../actions/posts";
+import { Posts } from "../../models/posts";
 
-const initialState = {};
+const initialState: Posts = {};
 
 // const descendDateSort = (arr) => {
 //   return arr.sort((a, b) => {
@@ -8,7 +9,7 @@ const initialState = {};
 //   });
 // };
 
-export default (state = initialState, action) => {
+export default (state: Posts = initialState, action) => {
   switch (action.type) {
     case FETCH_POSTS: {
       return action.payload;
