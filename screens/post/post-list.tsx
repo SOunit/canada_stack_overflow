@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchPosts } from "../../store/action-creators/posts";
 import firebaseApp from "../../firebase-app";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
 
-const PostList = ({ navigation }) => {
+const PostList: NavigationStackScreenComponent = ({ navigation }) => {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
+  const posts = useTypedSelector((state) => state.posts);
 
   // read data from firebase
   useEffect(() => {
@@ -24,7 +26,7 @@ const PostList = ({ navigation }) => {
         key={id}
         onPress={() => navigation.navigate("PostDetail", { id })}
       >
-        <ListItem bottomDivider>
+        <ListItem bottomDivider hasTVPreferredFocus tvParallaxProperties>
           <ListItem.Content>
             <ListItem.Title>{posts[id].title}</ListItem.Title>
             <ListItem.Subtitle>{posts[id].postDate}</ListItem.Subtitle>

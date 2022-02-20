@@ -1,10 +1,10 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Input, Button, Card } from "react-native-elements";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
 import firebaseApp from "../../firebase-app";
 
-const CreateComment = ({ navigation }) => {
+const CreateComment: NavigationStackScreenComponent = ({ navigation }) => {
   const [commentInput, setCommentInput] = useState("");
   const postId = navigation.getParam("postId");
 
@@ -22,6 +22,7 @@ const CreateComment = ({ navigation }) => {
   return (
     <Card>
       <Input
+        autoCompleteType="off"
         placeholder="Comment"
         multiline
         style={styles.input}

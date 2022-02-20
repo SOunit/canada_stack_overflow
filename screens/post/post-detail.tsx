@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ScrollView } from "react-native";
 import { Text } from "react-native-elements";
 import firebaseApp from "../../firebase-app";
@@ -6,14 +6,17 @@ import { useEffect } from "react";
 import * as postActions from "../../store/action-creators/posts";
 import CommentCard from "../../components/organisms/comment-card";
 import { Comment } from "../../models/comment";
+import { Comments } from "../../models/comments";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
 
-const PostDetail = ({ navigation }) => {
+const PostDetail: NavigationStackScreenComponent = ({ navigation }) => {
   const dispatch = useDispatch();
 
   // for toggle comment good button
-  const userId = useSelector((state) => state.auth.userId);
+  const userId = useTypedSelector((state) => state.auth.userId);
   const postId = navigation.getParam("id");
-  const selectedPost = useSelector((state) => state.posts)[postId];
+  const selectedPost = useTypedSelector((state) => state.posts)[postId];
 
   // set params to pass to navigator
   useEffect(() => {
@@ -37,7 +40,9 @@ const PostDetail = ({ navigation }) => {
     }
 
     // voteUserIdList exist
-    const voteUserIdList = [...selectedPost.comments[commentId].voteUserIdList];
+    const voteUserIdList = [
+      ...selectedPost.comments[commentId].voteUserIdList!,
+    ];
     let body;
     if (voteUserIdList.includes(userId)) {
       body = {
@@ -64,7 +69,7 @@ const PostDetail = ({ navigation }) => {
     return arr.sort((a, b) => b.data.voteCount - a.data.voteCount);
   };
 
-  const getOrderedComments = (comments: Comment[]) => {
+  const getOrderedComments = (comments: Comments) => {
     let commentList = [];
     for (let id in comments) {
       commentList.push({ id, data: comments[id] });
