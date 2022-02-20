@@ -1,6 +1,7 @@
 import { FETCH_POSTS, UPDATE_VOTE } from "../actions/posts";
+import { Posts } from "../../models/posts";
 
-const initialState = [];
+const initialState: Posts = {};
 
 // const descendDateSort = (arr) => {
 //   return arr.sort((a, b) => {
@@ -8,7 +9,24 @@ const initialState = [];
 //   });
 // };
 
-export default (state = initialState, action) => {
+interface FetchPostAction {
+  type: string;
+  payload: Posts;
+}
+
+interface UpdatePostAction {
+  type: string;
+  payload: {
+    postId: string;
+    commentId: string;
+    userId: string;
+    isIncrement: boolean;
+  };
+}
+
+type PostAction = FetchPostAction & UpdatePostAction;
+
+export default (state: Posts = initialState, action: PostAction) => {
   switch (action.type) {
     case FETCH_POSTS: {
       return action.payload;
@@ -34,7 +52,7 @@ export default (state = initialState, action) => {
         }
       } else {
         targetComment.voteCount -= 1;
-        targetComment.voteUserIdList = targetComment.voteUserIdList.filter(
+        targetComment.voteUserIdList = targetComment.voteUserIdList!.filter(
           (id: string) => id !== userId
         );
       }
