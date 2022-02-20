@@ -39,7 +39,7 @@ const init = () => {
   }
 };
 
-const create = (path: string, body: object, callback: Function) => {
+const create = (path: string, body: object) => {
   const db = getDatabase();
   const reference = ref(db, path);
   push(reference, body);

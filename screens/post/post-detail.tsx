@@ -4,33 +4,44 @@ import { Text, Card } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import firebaseApp from "../../firebase-app";
+import { useEffect } from "react";
 
 const PostDetail = ({ navigation }) => {
   // for toggle comment good button
   const userId = useSelector((state) => state.auth.userId);
 
   const postId = navigation.getParam("id");
+
+  // set params to pass to navigator
+  useEffect(() => {
+    navigation.setParams({ postId });
+  }, [postId]);
+
   const selectedPost = useSelector((state) => state.posts)[postId];
 
-  // const descendVoteSort = (arr) => {
-  //   return arr.sort(
-  //     (a, b) =>
-  //       b[value].votedUserIdList.length - a[value].votedUserIdList.length
-  //   );
-  // };
-
   const toggleVoteHandler = (commentId: string) => {
-    const votedUserIdList = [
-      ...selectedPost.comments[commentId].votedUserIdList,
-    ];
+    // voteUserIdList not exist, add user
+    if (!selectedPost.comments[commentId].voteUserIdList) {
+      firebaseApp.update(`/posts/${postId}/comments/${commentId}`, {
+        voteUserIdList: [userId],
+        voteCount: 1,
+      });
+      return;
+    }
 
+    // voteUserIdList exist
+    const voteUserIdList = [...selectedPost.comments[commentId].voteUserIdList];
     let body;
-    if (votedUserIdList.includes(userId)) {
+    if (voteUserIdList.includes(userId)) {
       body = {
-        votedUserIdList: votedUserIdList.filter((id: string) => id !== userId),
+        voteUserIdList: voteUserIdList.filter((id: string) => id !== userId),
+        voteCount: selectedPost.comments[commentId].voteCount - 1,
       };
     } else {
-      body = { votedUserIdList: votedUserIdList.concat(userId) };
+      body = {
+        voteUserIdList: voteUserIdList.concat(userId),
+        voteCount: selectedPost.comments[commentId].voteCount + 1,
+      };
     }
 
     firebaseApp.update(`/posts/${postId}/comments/${commentId}`, body);
@@ -40,12 +51,12 @@ const PostDetail = ({ navigation }) => {
   for (let id in selectedPost.comments) {
     commentList.push(
       <Card key={id} containerStyle={{ marginTop: 15 }}>
-        <Text>{selectedPost.comments[id].comment}</Text>
+        <Text>{selectedPost.comments[id].text}</Text>
         <Card.Divider style={styles.divider} />
         <TouchableOpacity
           style={[
             styles.thumbsButton,
-            selectedPost.comments[id].votedUserIdList.includes(userId)
+            selectedPost.comments[id].voteUserIdList?.includes(userId)
               ? styles.clicked
               : styles.unClicked,
           ]}
@@ -56,19 +67,19 @@ const PostDetail = ({ navigation }) => {
             size={15}
             style={{ marginRight: 5 }}
             color={
-              selectedPost.comments[id].votedUserIdList.includes(userId)
+              selectedPost.comments[id].voteUserIdList?.includes(userId)
                 ? "#fff"
                 : "#000"
             }
           />
           <Text
             style={{
-              color: selectedPost.comments[id].votedUserIdList.includes(userId)
+              color: selectedPost.comments[id].voteUserIdList?.includes(userId)
                 ? "#fff"
                 : "#000",
             }}
           >
-            {selectedPost.comments[id].votedUserIdList.length - 1}
+            {selectedPost.comments[id].voteCount}
           </Text>
         </TouchableOpacity>
       </Card>
