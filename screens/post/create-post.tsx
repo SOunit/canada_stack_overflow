@@ -8,15 +8,11 @@ const createPost = ({ navigation }) => {
   const [postContent, setPostContent] = useState("");
 
   const createPostHandler = () => {
-    firebaseApp.create(
-      "/posts",
-      {
-        title: postTitle,
-        content: postContent,
-        postDate: new Date().toISOString(),
-      },
-      () => {}
-    );
+    firebaseApp.create("/posts", {
+      title: postTitle,
+      content: postContent,
+      postDate: new Date().toISOString(),
+    });
     navigation.navigate(POST_LIST);
   };
 

@@ -9,17 +9,10 @@ const PostList = ({ navigation }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
 
-  // const descendDateSort = (arr) => {
-  //   return arr.sort((a, b) => {
-  //     return new Date(b.postDate) - new Date(a.postDate);
-  //   });
-  // };
-
   // read data from firebase
   useEffect(() => {
     firebaseApp.read("/posts", (snapshot) => {
       const posts = snapshot.val();
-      console.log("posts", posts);
       dispatch(fetchPosts(posts));
     });
   }, []);

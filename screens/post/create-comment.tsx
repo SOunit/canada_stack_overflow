@@ -1,21 +1,21 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Input, Button, Card } from "react-native-elements";
-import { getDatabase, ref, push } from "firebase/database";
-import { useSelector } from "react-redux";
+import firebaseApp from "../../firebase-app";
 
 const CreateComment = ({ navigation }) => {
   const [commentInput, setCommentInput] = useState("");
-  const postKey = useSelector((state) => state.postKey);
+  const postId = navigation.getParam("postId");
 
   // push comment to firebase
   const submitComment = () => {
-    const db = getDatabase();
-    const reference = ref(db, `/posts/${postKey}/comments`);
-    push(reference, {
-      comment: commentInput,
-      votedUserIdList: ["demo-user-to-create-array"],
+    firebaseApp.create(`/posts/${postId}/comments`, {
+      text: commentInput,
+      voteUserIdList: [],
+      voteCount: 0,
     });
+
     navigation.navigate("PostDetail");
   };
 

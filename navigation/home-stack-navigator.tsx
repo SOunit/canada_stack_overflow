@@ -63,7 +63,11 @@ const HomeStackNavigator = createStackNavigator(
           headerRight: () => (
             <TouchableOpacity
               style={{ alignItems: "center", marginRight: 20 }}
-              onPress={() => navigation.navigate("CommentCreate")}
+              onPress={() =>
+                navigation.navigate("CommentCreate", {
+                  postId: navigation.getParam("postId"),
+                })
+              }
             >
               <FontAwesome
                 name="pencil-square-o"

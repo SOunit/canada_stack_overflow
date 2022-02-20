@@ -1,5 +1,5 @@
-export const INIT_POSTS = "INIT_POSTS";
+export const FETCH_POSTS = "FETCH_POSTS";
 
 export const fetchPosts = (posts) => {
-  return { type: INIT_POSTS, payload: posts };
+  return { type: FETCH_POSTS, payload: posts };
 };
