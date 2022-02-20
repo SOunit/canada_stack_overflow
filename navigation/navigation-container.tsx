@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { NavigationActions } from "react-navigation";
 import { useSelector } from "react-redux";
-import MainNavigator from "./MainNavigator";
+import MainNavigator from "./main-navigator";
 
 const NavigationContainer = () => {
   const isAuth = useSelector((state) => !!state.auth.token);

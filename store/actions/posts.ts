@@ -1,5 +1,18 @@
-export const INIT_POSTS = "INIT_POSTS";
+export const FETCH_POSTS = "FETCH_POSTS";
+export const UPDATE_VOTE = "UPDATE_VOTE";
 
-export const initPosts = (posts) => {
-  return { type: INIT_POSTS, payload: posts };
+export const fetchPosts = (posts) => {
+  return { type: FETCH_POSTS, payload: posts };
+};
+
+export const updateVote = (
+  postId: string,
+  commentId: string,
+  userId: string,
+  isIncrement: boolean
+) => {
+  return {
+    type: UPDATE_VOTE,
+    payload: { postId, commentId, userId, isIncrement },
+  };
 };

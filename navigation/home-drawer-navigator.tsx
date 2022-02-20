@@ -7,13 +7,13 @@ import {
 } from "react-navigation-drawer";
 import { useDispatch } from "react-redux";
 import Colors from "../constants/Colors";
-import defaultNavOptions from "./defaultNavOptions";
-import HomeNavigator from "./HomeNavigator";
+import defaultNavOptions from "./default-nav-options";
+import HomeStackNavigator from "./home-stack-navigator";
 import * as authActions from "../store/actions/auth";
 
 const HomeDrawerNavigator = createDrawerNavigator(
   {
-    Home: HomeNavigator,
+    Home: HomeStackNavigator,
   },
   {
     contentOptions: {

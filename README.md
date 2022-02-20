@@ -29,3 +29,5 @@ Expo is an open-source platform for making universal native apps for Android, iO
 # contact
 - if you have any problem with setup and etc. let's talk in zoom or slack!
 
+# stack overflow database map
+![AyIkW](https://user-images.githubusercontent.com/38809138/154817469-31749fb1-8919-48aa-a7e9-124f257f6e05.png)
