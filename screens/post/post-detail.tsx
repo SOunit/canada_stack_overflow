@@ -68,9 +68,7 @@ const PostDetail = ({ navigation }) => {
     return arr.sort((a, b) => b.data.voteCount - a.data.voteCount);
   };
   if (commentList.length > 0) {
-    console.log("sort");
     commentList = descendVoteSort(commentList);
-    console.log("commentList", commentList);
   }
 
   return (
