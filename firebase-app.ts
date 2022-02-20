@@ -1,4 +1,4 @@
-import { FirebaseApp, getApp, getApps, initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 import {
   FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN,
