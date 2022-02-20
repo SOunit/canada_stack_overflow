@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
 import { NavigationActions } from "react-navigation";
-import { useSelector } from "react-redux";
+import { useTypedSelector } from "../hooks/use-typed-selector";
 import MainNavigator from "./main-navigator";
 
 const NavigationContainer = () => {
-  const isAuth = useSelector((state) => !!state.auth.token);
+  const isAuth = useTypedSelector((state) => !!state.auth.token);
   const navRef = useRef();
 
   useEffect(() => {
     if (!isAuth) {
-      navRef.current.dispatch(
+      navRef.current?.dispatch(
         NavigationActions.navigate({ routeName: "Auth" })
       );
     }

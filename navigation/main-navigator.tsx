@@ -1,4 +1,3 @@
-import {} from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import AuthNavigator from "./auth-navigator";
 import HomeDrawerNavigator from "./home-drawer-navigator";
