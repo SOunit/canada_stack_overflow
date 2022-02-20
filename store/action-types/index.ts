@@ -1,0 +1,6 @@
+export enum ActionType {
+  AUTHENTICATE = "AUTHENTICATE",
+  LOGOUT = "LOGOUT",
+  FETCH_POSTS = "FETCH_POSTS",
+  UPDATE_VOTE = "UPDATE_VOTE",
+}

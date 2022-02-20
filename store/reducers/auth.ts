@@ -1,16 +1,5 @@
-import { AUTHENTICATE, LOGOUT } from "../actions/auth";
-
-interface AuthenticateAction {
-  type: string;
-  token: string;
-  userId: string;
-}
-
-interface LogoutAction {
-  type: string;
-}
-
-type AuthAction = AuthenticateAction & LogoutAction;
+import { ActionType } from "../action-types";
+import { AuthAction } from "../actions";
 
 const initialState = {
   token: null,
@@ -19,11 +8,11 @@ const initialState = {
 
 export default (state = initialState, action: AuthAction) => {
   switch (action.type) {
-    case AUTHENTICATE: {
+    case ActionType.AUTHENTICATE: {
       return { ...state, token: action.token, userId: action.userId };
     }
 
-    case LOGOUT: {
+    case ActionType.LOGOUT: {
       return initialState;
     }
 

@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import Colors from "../constants/Colors";
 import defaultNavOptions from "./default-nav-options";
 import HomeStackNavigator from "./home-stack-navigator";
-import * as authActions from "../store/actions/auth";
+import * as authActions from "../store/action-creators/auth";
 
 const HomeDrawerNavigator = createDrawerNavigator(
   {
