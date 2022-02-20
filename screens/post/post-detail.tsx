@@ -3,7 +3,7 @@ import { ScrollView } from "react-native";
 import { Text } from "react-native-elements";
 import firebaseApp from "../../firebase-app";
 import { useEffect } from "react";
-import * as postActions from "../../store/actions/posts";
+import * as postActions from "../../store/action-creators/posts";
 import CommentCard from "../../components/organisms/comment-card";
 import { Comment } from "../../models/comment";
 

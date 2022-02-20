@@ -2,7 +2,7 @@ import { useReducer, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Input } from "react-native-elements";
 import { useDispatch } from "react-redux";
-import * as authActions from "../../store/actions/auth";
+import * as authActions from "../../store/action-creators/auth";
 import { FIREBASE_API_KEY } from "@env";
 
 const UPDATE_EMAIL = "UPDATE_EMAIL";

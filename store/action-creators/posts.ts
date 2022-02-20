@@ -1,9 +1,8 @@
-export const FETCH_POSTS = "FETCH_POSTS";
-export const UPDATE_VOTE = "UPDATE_VOTE";
 import { Posts } from "../../models/posts";
+import { ActionType } from "../action-types";
 
 export const fetchPosts = (posts: Posts) => {
-  return { type: FETCH_POSTS, payload: posts };
+  return { type: ActionType.FETCH_POSTS, payload: posts };
 };
 
 export const updateVote = (
@@ -13,7 +12,7 @@ export const updateVote = (
   isIncrement: boolean
 ) => {
   return {
-    type: UPDATE_VOTE,
+    type: ActionType.UPDATE_VOTE,
     payload: { postId, commentId, userId, isIncrement },
   };
 };
