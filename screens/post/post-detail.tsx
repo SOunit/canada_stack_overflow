@@ -8,8 +8,9 @@ import CommentCard from "../../components/organisms/comment-card";
 import { Comment } from "../../models/comment";
 import { Comments } from "../../models/comments";
 import { useTypedSelector } from "../../hooks/use-typed-selector";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
 
-const PostDetail = ({ navigation }) => {
+const PostDetail: NavigationStackScreenComponent = ({ navigation }) => {
   const dispatch = useDispatch();
 
   // for toggle comment good button

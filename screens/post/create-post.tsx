@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Card, Input, Button } from "react-native-elements";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
 import { POST_LIST } from "../../constants/screen-names";
 import firebaseApp from "../../firebase-app";
 
-const createPost = ({ navigation }) => {
+const createPost: NavigationStackScreenComponent = ({ navigation }) => {
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
 

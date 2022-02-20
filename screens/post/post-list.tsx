@@ -5,8 +5,9 @@ import { useDispatch } from "react-redux";
 import { fetchPosts } from "../../store/action-creators/posts";
 import firebaseApp from "../../firebase-app";
 import { useTypedSelector } from "../../hooks/use-typed-selector";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
 
-const PostList = ({ navigation }) => {
+const PostList: NavigationStackScreenComponent = ({ navigation }) => {
   const dispatch = useDispatch();
   const posts = useTypedSelector((state) => state.posts);
 
@@ -25,7 +26,7 @@ const PostList = ({ navigation }) => {
         key={id}
         onPress={() => navigation.navigate("PostDetail", { id })}
       >
-        <ListItem bottomDivider>
+        <ListItem bottomDivider hasTVPreferredFocus tvParallaxProperties>
           <ListItem.Content>
             <ListItem.Title>{posts[id].title}</ListItem.Title>
             <ListItem.Subtitle>{posts[id].postDate}</ListItem.Subtitle>
