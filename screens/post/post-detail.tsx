@@ -60,16 +60,22 @@ const PostDetail = ({ navigation }) => {
     firebaseApp.update(`/posts/${postId}/comments/${commentId}`, body);
   };
 
-  let commentList = [];
-  for (let id in selectedPost.comments) {
-    commentList.push({ id, data: selectedPost.comments[id] });
-  }
   const descendVoteSort = (arr: { id: string; data: Comment }[]) => {
     return arr.sort((a, b) => b.data.voteCount - a.data.voteCount);
   };
-  if (commentList.length > 0) {
-    commentList = descendVoteSort(commentList);
-  }
+
+  const getOrderedComments = (comments: Comment[]) => {
+    let commentList = [];
+    for (let id in comments) {
+      commentList.push({ id, data: comments[id] });
+    }
+    if (commentList.length > 0) {
+      commentList = descendVoteSort(commentList);
+    }
+    return commentList;
+  };
+
+  let commentList = getOrderedComments(selectedPost.comments);
 
   return (
     <ScrollView>
