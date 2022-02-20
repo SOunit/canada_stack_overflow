@@ -15,7 +15,7 @@ import {
   onValue,
   push,
   ref,
-  set,
+  update,
 } from "firebase/database";
 
 const firebaseConfig = {
@@ -51,12 +51,12 @@ const read = (path: string, callback: (snapshot: DataSnapshot) => unknown) => {
   onValue(reference, callback);
 };
 
-const update = (path: string, body: object) => {
+const updateFn = (path: string, body: object) => {
   const db = getDatabase();
   const reference = ref(db, path);
   update(reference, body);
 };
 
-const firebaseApp = { init, create, read, update };
+const firebaseApp = { init, create, read, update: updateFn };
 
 export default firebaseApp;
