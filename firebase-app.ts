@@ -57,6 +57,11 @@ const updateFn = (path: string, body: object) => {
   update(reference, body);
 };
 
-const firebaseApp = { init, create, read, update: updateFn };
+const firebaseApp = {
+  init,
+  create,
+  read,
+  update: updateFn,
+};
 
 export default firebaseApp;
