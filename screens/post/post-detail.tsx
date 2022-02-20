@@ -80,6 +80,7 @@ const PostDetail = ({ navigation }) => {
       </Text>
       {commentList.map((comment: { id: string; data: Comment }) => (
         <CommentCard
+          key={comment.id}
           comment={comment}
           onToggleVote={toggleVoteHandler}
           userId={userId}
