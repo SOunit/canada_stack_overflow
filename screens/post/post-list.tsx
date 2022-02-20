@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchPosts } from "../../store/action-creators/posts";
 import firebaseApp from "../../firebase-app";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
 
 const PostList = ({ navigation }) => {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
+  const posts = useTypedSelector((state) => state.posts);
 
   // read data from firebase
   useEffect(() => {

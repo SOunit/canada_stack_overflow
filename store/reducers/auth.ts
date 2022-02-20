@@ -1,9 +1,10 @@
+import { Auth } from "../../models/auth";
 import { ActionType } from "../action-types";
 import { AuthAction } from "../actions";
 
-const initialState = {
-  token: null,
-  userId: null,
+const initialState: Auth = {
+  token: "",
+  userId: "",
 };
 
 export default (state = initialState, action: AuthAction) => {

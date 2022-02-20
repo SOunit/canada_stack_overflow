@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Input, Button, Card } from "react-native-elements";
@@ -22,6 +21,7 @@ const CreateComment = ({ navigation }) => {
   return (
     <Card>
       <Input
+        autoCompleteType="off"
         placeholder="Comment"
         multiline
         style={styles.input}
