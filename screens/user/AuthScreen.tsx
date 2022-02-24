@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import * as authActions from "../../store/action-creators/auth";
 import { FIREBASE_API_KEY } from "@env";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const UPDATE_EMAIL = "UPDATE_EMAIL";
 const UPDATE_PASSWORD = "UPDATE_PASSWORD";
@@ -43,6 +44,8 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
 
   const authHandler = async () => {
     try {
+      // FIXME
+      // delete this approach, use signInWithEmailAndPassword
       let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`;
       if (isSignUp) {
         url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`;
@@ -64,6 +67,10 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
       const resData = await response.json();
 
       dispatch(authActions.authenticate(resData.idToken, resData.localId));
+
+      // FIXME
+      // this is better way for firebase auth
+      await signInWithEmailAndPassword(getAuth(), form.email!, form.password!);
 
       props.navigation.navigate("Home");
     } catch (err) {
