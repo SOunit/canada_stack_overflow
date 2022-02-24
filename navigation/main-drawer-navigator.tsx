@@ -9,10 +9,12 @@ import { useDispatch } from "react-redux";
 import Colors from "../constants/Colors";
 import HomeStackNavigator from "./home-stack-navigator";
 import * as authActions from "../store/action-creators/auth";
+import UserStackNavigator from "./user-stack-navigator";
 
-const HomeDrawerNavigator = createDrawerNavigator(
+const MainDrawerNavigator = createDrawerNavigator(
   {
     Home: HomeStackNavigator,
+    User: UserStackNavigator,
   },
   {
     contentOptions: {
@@ -39,4 +41,4 @@ const HomeDrawerNavigator = createDrawerNavigator(
   }
 );
 
-export default HomeDrawerNavigator;
+export default MainDrawerNavigator;
