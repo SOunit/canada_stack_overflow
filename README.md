@@ -23,6 +23,11 @@ Expo is an open-source platform for making universal native apps for Android, iO
 - get review and merge
 - close issue
 
+# issue driven development
+- small PR(pull-request) is better for review
+- 1 PR should have less than 15 files
+- issue also should focus on small issues to make PR smaller
+
 # check
 - no error, no warning
 
