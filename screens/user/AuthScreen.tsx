@@ -22,13 +22,13 @@ interface formAction {
 
 const AuthScreen: NavigationStackScreenComponent = (props) => {
   const [isSignUp, setIsSignUp] = useState(false);
-  // const [isEmpty, setIsEmpty] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
   const [error, setError] = useState(false);
   const [form, formDispatch] = useReducer(
     (state: formState, action: formAction) => {
-      // if (action.text.trim.length === 0) {
-      //   setIsEmpty(true);
-      // }
+      if (action.text === "") {
+        setIsEmpty(true);
+      }
 
       switch (action.type) {
         case UPDATE_EMAIL: {
@@ -87,20 +87,17 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
   const passwordChangeHandler = (text: string) => {
     formDispatch({ type: UPDATE_PASSWORD, text });
   };
-
-  const removeHandler = () => {
+  const errorHandler = () => {
     setError(false);
   };
 
   return (
     <View style={styles.screen}>
-      {error && (
-        <ErrorModal text="Something went wrong!" onRemove={removeHandler} />
-      )}
+      {error && <ErrorModal onRemove={errorHandler} />}
       <Card containerStyle={{ width: "85%" }}>
         <Card.Title>{isSignUp ? "Sign Up" : "Login"}</Card.Title>
         <Card.Divider />
-        {/* {isEmpty && <p>don't leave email or password blank</p>} */}
+        {isEmpty && <p>don't leave email or password blank</p>}
         <Input
           autoCompleteType="off"
           placeholder="Email"
