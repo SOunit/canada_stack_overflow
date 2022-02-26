@@ -39,7 +39,7 @@ Expo is an open-source platform for making universal native apps for Android, iO
 ## molecules
 - group of components, resusable
 
-# organisms
+## organisms
 - unique, not reusable
 
 # contact
