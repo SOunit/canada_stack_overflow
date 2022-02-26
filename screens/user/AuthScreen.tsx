@@ -74,8 +74,6 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
 
       props.navigation.navigate("Home");
     } catch (err) {
-      console.log("Error in AuthScreen");
-      console.log(err.message);
       setError(true);
     }
   };
