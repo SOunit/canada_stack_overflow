@@ -31,6 +31,17 @@ Expo is an open-source platform for making universal native apps for Android, iO
 # check
 - no error, no warning
 
+# atomic design
+- how to divide components
+## atoms
+- minimum component, resusable
+
+## molecules
+- group of components, resusable
+
+# organisms
+- unique, not reusable
+
 # contact
 - if you have any problem with setup and etc. let's talk in zoom or slack!
 
