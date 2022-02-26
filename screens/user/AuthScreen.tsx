@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import * as authActions from "../../store/action-creators/auth";
 import { FIREBASE_API_KEY } from "@env";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
+import ErrorModal from "../../components/common/ErrorModal";
 
 const UPDATE_EMAIL = "UPDATE_EMAIL";
 const UPDATE_PASSWORD = "UPDATE_PASSWORD";
@@ -21,8 +22,14 @@ interface formAction {
 
 const AuthScreen: NavigationStackScreenComponent = (props) => {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [error, setError] = useState(false);
   const [form, formDispatch] = useReducer(
     (state: formState, action: formAction) => {
+      if (action.text === "") {
+        setIsEmpty(true);
+      }
+
       switch (action.type) {
         case UPDATE_EMAIL: {
           return { ...state, email: action.text };
@@ -67,8 +74,7 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
 
       props.navigation.navigate("Home");
     } catch (err) {
-      console.log("Error in AuthScreen");
-      console.log(err.message);
+      setError(true);
     }
   };
 
@@ -79,12 +85,17 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
   const passwordChangeHandler = (text: string) => {
     formDispatch({ type: UPDATE_PASSWORD, text });
   };
+  const errorHandler = () => {
+    setError(false);
+  };
 
   return (
     <View style={styles.screen}>
+      {error && <ErrorModal onRemove={errorHandler} />}
       <Card containerStyle={{ width: "85%" }}>
         <Card.Title>{isSignUp ? "Sign Up" : "Login"}</Card.Title>
         <Card.Divider />
+        {isEmpty && <p>don't leave email or password blank</p>}
         <Input
           autoCompleteType="off"
           placeholder="Email"
