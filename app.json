@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "job_stack_overflow",
-    "slug": "job_stack_overflow",
+    "name": "canada_stack_overflow",
+    "slug": "canada_stack_overflow",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
