@@ -1,10 +1,11 @@
 import { useReducer, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View, Linking, Alert } from "react-native";
 import { Button, Card, Input } from "react-native-elements";
 import { useDispatch } from "react-redux";
 import * as authActions from "../../store/action-creators/auth";
 import { FIREBASE_API_KEY } from "@env";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const UPDATE_EMAIL = "UPDATE_EMAIL";
 const UPDATE_PASSWORD = "UPDATE_PASSWORD";
@@ -39,7 +40,22 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
       password: "password",
     }
   );
+
   const dispatch = useDispatch();
+
+  const openUrl = async (url: string) => {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(
+        "エラー",
+        "このページを開ませんでした",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
+    }
+  };
 
   const authHandler = async () => {
     try {
@@ -66,7 +82,7 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
       dispatch(authActions.authenticate(resData.idToken, resData.localId));
 
       props.navigation.navigate("Home");
-    } catch (err) {
+    } catch (err: any) {
       console.log("Error in AuthScreen");
       console.log(err.message);
     }
@@ -78,6 +94,10 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
 
   const passwordChangeHandler = (text: string) => {
     formDispatch({ type: UPDATE_PASSWORD, text });
+  };
+
+  const onPressPrivacyPolicy = () => {
+    openUrl("https://sounit.github.io/canada-stack-overflow-privacy-policy/");
   };
 
   return (
@@ -107,6 +127,10 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
             setIsSignUp((prevState) => !prevState);
           }}
         />
+        <Card.Divider />
+        <TouchableOpacity onPress={onPressPrivacyPolicy}>
+          <Text style={styles.privacyPolicyText}>Privacy Policy</Text>
+        </TouchableOpacity>
       </Card>
     </View>
   );
@@ -114,6 +138,11 @@ const AuthScreen: NavigationStackScreenComponent = (props) => {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, justifyContent: "center", alignItems: "center" },
+  privacyPolicyText: {
+    textAlign: "center",
+    color: "blue",
+    textDecorationLine: "underline",
+  },
 });
 
 export default AuthScreen;
